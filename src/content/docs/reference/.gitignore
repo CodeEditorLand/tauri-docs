@@ -1,5 +1,0 @@
-config.md
-acl/*.md
-cli.mdx
-javascript/*
-!javascript/index.mdx
