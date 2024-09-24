@@ -47,7 +47,7 @@ jobs:
 
       # install the latest Rust stable
       - name: Rust stable
-        uses: actions-rs/toolchain@v1.0.7$
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 

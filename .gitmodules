@@ -1,12 +1,14 @@
 [submodule "packages/plugins-workspace"]
-	path = packages/plugins-workspace
-	url = https://github.com/tauri-apps/plugins-workspace.git
-	branch = v2
+path = packages/plugins-workspace
+url = ssh://git@github.com/CodeEditorLand/plugins-workspace.git
+branch = v2
+
 [submodule "packages/awesome-tauri"]
-	path = packages/awesome-tauri
-	url = https://github.com/tauri-apps/awesome-tauri
-	branch = dev
+path = packages/awesome-tauri
+url = ssh://git@github.com/CodeEditorLand/awesome-tauri
+branch = dev
+
 [submodule "packages/tauri"]
-	path = packages/tauri
-	url = https://github.com/tauri-apps/tauri.git
-	branch = dev
+path = packages/tauri
+url = ssh://git@github.com/CodeEditorLand/tauri.git
+branch = dev
