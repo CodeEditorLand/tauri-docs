@@ -1,11 +1,11 @@
 {
-	"dependencies": {
-		"tsm": "2.3.0"
-	},
+	"name": "releases-generator",
 	"description": "",
 	"main": "index.js",
-	"name": "releases-generator",
 	"scripts": {
 		"build": "tsm ./build.ts"
+	},
+	"dependencies": {
+		"tsm": "2.3.0"
 	}
 }
