@@ -1,27 +1,21 @@
 {
-	"name": "config-generator",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"build": "tsm ./build.ts"
-	},
-	"dependencies": {
-<<<<<<< HEAD
-		"@types/json-schema": "7.0.15",
-		"@types/node": "20.11.20",
-		"github-slugger": "2.0.0",
-		"tsm": "2.3.0"
-=======
-		"@types/json-schema": "7.0.15",
-		"@types/node": "22.7.3",
-		"github-slugger": "2.0.0",
-		"tsm": "2.3.0"
-	},
-	"description": "",
-	"main": "index.js",
-	"name": "config-generator",
-	"scripts": {
-		"build": "tsm ./build.ts"
->>>>>>> 5ba3a8f4e151553e410bcc7734f41cc9103c0ed0
-	}
+  "name": "config-generator",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsm ./build.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "^20.11.20",
+    "github-slugger": "^2.0.0",
+    "tsm": "^2.3.0",
+    "typescript": "^5.3.3"
+  }
 }
