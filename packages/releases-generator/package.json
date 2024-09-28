@@ -1,5 +1,11 @@
 {
+<<<<<<< HEAD
 	"name": "releases-generator",
+=======
+	"dependencies": {
+		"tsm": "2.3.0"
+	},
+>>>>>>> 5ba3a8f4e151553e410bcc7734f41cc9103c0ed0
 	"description": "",
 	"main": "index.js",
 	"scripts": {
