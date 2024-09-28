@@ -1,14 +1,14 @@
 {
+	"name": "cli-generator",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsm ./build.ts"
+	},
 	"dependencies": {
 		"@tauri-apps/cli": "2.0.0-rc.16",
 		"@types/node": "^20.11.20",
 		"github-slugger": "^2.0.0",
 		"tsm": "^2.3.0"
-	},
-	"description": "",
-	"main": "index.js",
-	"name": "cli-generator",
-	"scripts": {
-		"build": "tsm ./build.ts"
 	}
 }
