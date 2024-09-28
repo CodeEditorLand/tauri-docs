@@ -1,0 +1,11 @@
+[submodule "packages/plugins-workspace"]
+path = packages/plugins-workspace
+url = ssh://git@github.com/CodeEditorLand/PluginsWorkspace.git
+
+[submodule "packages/awesome-tauri"]
+path = packages/awesome-tauri
+url = ssh://git@github.com/CodeEditorLand/AwesomeTauri.git
+
+[submodule "packages/tauri"]
+path = packages/tauri
+url = ssh://git@github.com/CodeEditorLand/Tauri.git
