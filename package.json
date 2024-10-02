@@ -5,7 +5,7 @@
 		"@astrojs/starlight": "0.28.2",
 		"@lorenzo_lewis/starlight-utils": "0.1.2",
 		"@types/json-schema": "7.0.15",
-		"astro": "4.15.9",
+		"astro": "4.15.10",
 		"astro-d2": "0.5.2",
 		"astro-feelback": "0.3.4",
 		"astrojs-service-worker": "2.0.0",
@@ -16,7 +16,7 @@
 		"sharp": "0.33.5",
 		"shiki": "1.21.0",
 		"starlight-blog": "0.13.0",
-		"starlight-links-validator": "0.12.1"
+		"starlight-links-validator": "0.12.2"
 	},
 	"name": "tauri-docs",
 	"pnpm": {
