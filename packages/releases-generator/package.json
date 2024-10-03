@@ -1,15 +1,11 @@
 {
-  "name": "releases-generator",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsm ./build.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "tsm": "^2.3.0"
-  }
+	"dependencies": {
+		"tsm": "2.3.0"
+	},
+	"description": "",
+	"main": "index.js",
+	"name": "releases-generator",
+	"scripts": {
+		"build": "tsm ./build.ts"
+	}
 }
