@@ -1,11 +1,12 @@
 ---
-import TableOfContentsList from './TableOfContents/TableOfContentsList.astro';
-import type { Props as BaseProps } from '@astrojs/starlight/props';
+import type { Props as BaseProps } from "@astrojs/starlight/props";
+
+import TableOfContentsList from "./TableOfContents/TableOfContentsList.astro";
 
 type Props = BaseProps & {
-  toc: BaseProps['toc'] & {
-    collapseLevel?: number;
-  };
+	toc: BaseProps["toc"] & {
+		collapseLevel?: number;
+	};
 };
 
 const { toc } = Astro.props;
@@ -13,14 +14,21 @@ const { t } = Astro.locals;
 ---
 
 {
-  toc && (
-    <tauri-starlight-toc data-min-h={toc.minHeadingLevel} data-max-h={toc.maxHeadingLevel}>
-      <nav aria-labelledby="starlight__on-this-page">
-        <h2 id="starlight__on-this-page">{t('tableOfContents.onThisPage')}</h2>
-        <TableOfContentsList toc={toc.items} collapseLevel={toc.collapseLevel} />
-      </nav>
-    </tauri-starlight-toc>
-  )
+	toc && (
+		<tauri-starlight-toc
+			data-min-h={toc.minHeadingLevel}
+			data-max-h={toc.maxHeadingLevel}>
+			<nav aria-labelledby="starlight__on-this-page">
+				<h2 id="starlight__on-this-page">
+					{t("tableOfContents.onThisPage")}
+				</h2>
+				<TableOfContentsList
+					toc={toc.items}
+					collapseLevel={toc.collapseLevel}
+				/>
+			</nav>
+		</tauri-starlight-toc>
+	)
 }
 
 <script src="./TableOfContents/starlight-toc"></script>
