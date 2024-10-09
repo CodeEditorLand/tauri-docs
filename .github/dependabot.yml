@@ -1,0 +1,50 @@
+version: 2
+enable-beta-ecosystems: true
+
+updates:
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "daily"
+
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/cli-generator"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/compatibility-table"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/config-generator"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/i18n-tracker"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/js-api-generator"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
+
+    - package-ecosystem: "npm"
+      directory: "/packages/releases-generator"
+      schedule:
+          interval: "daily"
+      versioning-strategy: increase
