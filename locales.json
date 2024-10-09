@@ -1,18 +1,18 @@
 {
-  "root": {
-    "label": "English",
-    "lang": "en"
-  },
-  "fr": {
-    "label": "Français",
-    "lang": "fr"
-  },
-  "es": {
-    "label": "Español",
-    "lang": "es"
-  },
-  "zh-cn": {
-    "label": "简体中文",
-    "lang": "zh-CN"
-  }
+	"root": {
+		"label": "English",
+		"lang": "en"
+	},
+	"fr": {
+		"label": "Français",
+		"lang": "fr"
+	},
+	"es": {
+		"label": "Español",
+		"lang": "es"
+	},
+	"zh-cn": {
+		"label": "简体中文",
+		"lang": "zh-CN"
+	}
 }

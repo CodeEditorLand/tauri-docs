@@ -1,21 +1,21 @@
 {
-  "name": "cli-generator",
-  "version": "1.0.0",
-  "private": "true",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "build": "tsm ./build.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@tauri-apps/cli": "2.0.2",
-    "@types/node": "^22.7.5",
-    "github-slugger": "^2.0.0",
-    "tsm": "^2.3.0",
-    "typescript": "^5.6.3"
-  }
+	"name": "cli-generator",
+	"version": "1.0.0",
+	"private": "true",
+	"description": "",
+	"keywords": [],
+	"license": "MIT",
+	"author": "",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsm ./build.ts"
+	},
+	"dependencies": {
+		"@tauri-apps/cli": "2.0.2",
+		"@types/node": "^22.7.5",
+		"github-slugger": "^2.0.0",
+		"tsm": "^2.3.0",
+		"typescript": "^5.6.3"
+	}
 }

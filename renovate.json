@@ -1,11 +1,11 @@
 {
-  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
-  "cloneSubmodules": true,
-  "semanticCommitType": "chore",
-  "labels": ["dependencies"],
-  "postUpdateOptions": ["pnpmDedupe"],
-  "git-submodules": {
-    "enabled": true,
-    "schedule": ["every weekend"]
-  }
+	"extends": ["config:base", "helpers:pinGitHubActionDigests"],
+	"cloneSubmodules": true,
+	"semanticCommitType": "chore",
+	"labels": ["dependencies"],
+	"postUpdateOptions": ["pnpmDedupe"],
+	"git-submodules": {
+		"enabled": true,
+		"schedule": ["every weekend"]
+	}
 }
