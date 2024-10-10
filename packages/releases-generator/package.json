@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"@types/semver": "7.5.8",
-		"semver": "7.6.0",
+		"semver": "7.6.3",
 		"tsm": "2.3.0"
 	},
 	"description": "",
