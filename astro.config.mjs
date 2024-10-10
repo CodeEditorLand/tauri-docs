@@ -65,7 +65,10 @@ const site = 'https://v2.tauri.app';
 export default defineConfig({
   site,
   trailingSlash: 'always',
-  integrations: [
+  build: {
+		concurrency: 9999
+	},
+	integrations: [
     starlight({
       plugins: [
         starlightUtils({
