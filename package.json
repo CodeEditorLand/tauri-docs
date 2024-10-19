@@ -11,7 +11,7 @@
 		"astrojs-service-worker": "2.0.0",
 		"jsdom": "25.0.1",
 		"rehype-autolink-headings": "7.1.0",
-		"sass": "1.80.1",
+		"sass": "1.80.2",
 		"sharp": "0.33.5",
 		"shiki": "1.22.0",
 		"starlight-blog": "0.14.0",
