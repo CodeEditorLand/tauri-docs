@@ -4,7 +4,7 @@
 		"tsm": "2.3.0",
 		"typedoc": "0.26.10",
 		"typedoc-plugin-markdown": "4.2.9",
-		"typedoc-plugin-mdn-links": "3.3.3"
+		"typedoc-plugin-mdn-links": "3.3.4"
 	},
 	"description": "",
 	"main": "index.js",
