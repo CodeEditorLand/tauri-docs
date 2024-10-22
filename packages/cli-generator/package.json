@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"@tauri-apps/cli": "2.0.4",
-		"@types/node": "22.7.7",
+		"@types/node": "22.7.8",
 		"github-slugger": "2.0.0",
 		"tsm": "2.3.0"
 	},
