@@ -81,25 +81,6 @@ async function generator() {
 			 */
 			const thisVersion = releases[i].version;
 
-<<<<<<< HEAD
-      if (i === 0) {
-        // latest version
-        latestVersions[pkg.name] = `v${thisVersion}`;
-      }
-      //
-      const pageFrontmatter = [
-        note,
-        `title: '${pkg.name}@${thisVersion}'`,
-        `description: '${thisVersion}'`,
-        `slug: 'release/${pkg.name}/v${thisVersion}'`,
-        `tableOfContents: false`,
-        `editUrl: 'https://github.com/tauri-apps/tauri-docs/blob/v2/packages/releases-generator/build.ts'`,
-        'pagefind: false',
-        'sidebar:',
-        `  label: ${thisVersion}`,
-        `  order: ${i}`,
-      ];
-=======
 			if (i === 0) {
 				// latest version
 				latestVersions[pkg.name] = `v${thisVersion}`;
@@ -117,7 +98,6 @@ async function generator() {
 				`  label: ${thisVersion}`,
 				`  order: ${i}`,
 			];
->>>>>>> 4d0a680822ab821a5476756bde488d455a092445
 
 			const frontmatter = ["---", ...pageFrontmatter, "---"].join("\n");
 			//
