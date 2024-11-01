@@ -13,9 +13,9 @@
   "license": "MIT",
   "dependencies": {
     "@tauri-apps/cli": "2.0.4",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.8.6",
     "github-slugger": "^2.0.0",
     "tsm": "^2.3.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.6.3"
   }
 }
