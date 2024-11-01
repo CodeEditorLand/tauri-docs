@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "tauri-docs",
   "type": "module",
   "private": true,
@@ -51,4 +52,46 @@
       "@astrojs/starlight@0.28.3": "patches/@astrojs__starlight@0.28.3.patch"
     }
   }
+=======
+	"dependencies": {
+		"@astrojs/markdown-remark": "6.0.0-beta.2",
+		"@astrojs/rss": "4.0.9",
+		"@astrojs/starlight": "0.28.3",
+		"@lorenzo_lewis/starlight-utils": "0.2.0",
+		"@types/json-schema": "7.0.15",
+		"astro": "5.0.0-beta.5",
+		"astro-d2": "0.6.0",
+		"astro-feelback": "0.3.4",
+		"astrojs-service-worker": "2.0.0",
+		"jsdom": "25.0.1",
+		"rehype-autolink-headings": "7.1.0",
+		"sass": "1.80.4",
+		"sharp": "0.33.5",
+		"shiki": "1.22.0",
+		"starlight-blog": "0.14.1",
+		"starlight-links-validator": "0.12.3"
+	},
+	"name": "tauri-docs",
+	"pnpm": {
+		"patchedDependencies": {
+			"@astrojs/starlight@0.28.3": "patches/@astrojs__starlight@0.28.3.patch"
+		}
+	},
+	"scripts": {
+		"build": "pnpm dev:setup && pnpm build:references && pnpm build:config && pnpm build:cli && pnpm build:releases && pnpm build:astro && pnpm build:i18n",
+		"build:astro": "astro build",
+		"build:cli": "pnpm --filter cli-generator run build",
+		"build:compatibility-table": "pnpm --filter compatibility-table run build",
+		"build:config": "pnpm --filter config-generator run build",
+		"build:i18n": "pnpm --filter docs-i18n-tracker run build",
+		"build:references": "pnpm --filter js-api-generator run build",
+		"build:releases": "pnpm --filter releases-generator run build",
+		"dev": "astro dev",
+		"dev:setup": "pnpm dev:setup:submodules && pnpm dev:setup:tauri && pnpm dev:setup:plugins-workspace && pnpm build:compatibility-table",
+		"dev:setup:plugins-workspace": "pnpm --prefix packages/plugins-workspace install",
+		"dev:setup:submodules": "git submodule update --init",
+		"dev:setup:tauri": "pnpm install -C packages/tauri/packages/api --ignore-workspace --no-frozen-lockfile",
+		"preview": "astro preview"
+	}
+>>>>>>> 4d0a680822ab821a5476756bde488d455a092445
 }
