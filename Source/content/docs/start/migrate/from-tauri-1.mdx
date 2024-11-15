@@ -63,8 +63,6 @@ The Tauri v2 CLI includes a `migrate` command that automates most of the process
     cargo tauri migrate'
 />
 
-{/* TODO: 2.0 */}
-
 Learn more about the `migrate` command in the [Command Line Interface reference](/reference/cli/#migrate)
 
 ## Summary of Changes
@@ -199,6 +197,10 @@ In order to support it, we renamed the Rust `Window` type to `WebviewWindow` and
 
 The `WebviewWindow` JS API type is now re-exported from `@tauri-apps/api/webviewWindow` instead of `@tauri-apps/api/window`.
 
+### New origin URL on Windows
+
+On Windows the frontend files in production apps are now hosted on `http://tauri.localhost` instead of `https://tauri.localhost`. Because of this IndexedDB, LocalStorage and Cookies will be reset unless `dangerousUseHttpScheme` was used in v1. To prevent this you can set `app > windows > useHttpsScheme` to `true` or use `WebviewWindowBuilder::use_https_scheme` to keep using the `https` scheme.
+
 ## Detailed Migration Steps
 
 Common scenarios you may encounter when migrating your Tauri 1.0 app to Tauri 2.0.
@@ -227,7 +229,7 @@ tauri-plugin-cli = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -278,7 +280,7 @@ The Rust `App::clipboard_manager` and `AppHandle::clipboard_manager` and JavaScr
 tauri-plugin-clipboard-manager = "2"
 ```
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -336,7 +338,7 @@ tauri-plugin-dialog = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -402,7 +404,7 @@ tauri-plugin-fs = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -460,7 +462,7 @@ tauri-plugin-global-shortcut = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -525,7 +527,7 @@ tauri-plugin-http = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -591,7 +593,7 @@ tauri-plugin-notification = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -770,7 +772,7 @@ tauri-plugin-os = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -825,7 +827,7 @@ tauri-plugin-process = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -884,7 +886,7 @@ tauri-plugin-shell = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust
@@ -1072,7 +1074,7 @@ tauri-plugin-updater = "2"
 
 2. Use in JavaScript or Rust project:
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```rust

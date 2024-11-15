@@ -33,6 +33,7 @@ Install the store plugin to get started.
     <CommandTabs npm="npm run tauri add store"
     yarn="yarn run tauri add store"
     pnpm="pnpm tauri add store"
+    deno="deno task tauri add store"
     bun="bun tauri add store"
     cargo="cargo tauri add store" />
 
@@ -63,6 +64,7 @@ Install the store plugin to get started.
             npm = "npm install @tauri-apps/plugin-store"
             yarn = "yarn add @tauri-apps/plugin-store"
             pnpm = "pnpm add @tauri-apps/plugin-store"
+            deno = "deno add npm:@tauri-apps/plugin-store"
             bun = "bun add @tauri-apps/plugin-store"
             />
         </Steps>
@@ -72,7 +74,7 @@ Install the store plugin to get started.
 
 ## Usage
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```typescript
@@ -150,7 +152,7 @@ const store = new LazyStore('settings.json');
 
 ## Migrating from v1 and v2 beta/rc
 
-<Tabs>
+<Tabs syncKey="lang">
 <TabItem label="JavaScript">
 
 ```diff

@@ -1,15 +1,15 @@
 {
-	"name": "js-api-generator",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"build": "tsm ./build.ts"
-	},
 	"dependencies": {
 		"github-slugger": "2.0.0",
 		"tsm": "2.3.0",
 		"typedoc": "0.26.11",
 		"typedoc-plugin-markdown": "4.2.10",
-		"typedoc-plugin-mdn-links": "3.3.6"
+		"typedoc-plugin-mdn-links": "3.3.7"
+	},
+	"description": "",
+	"main": "index.js",
+	"name": "js-api-generator",
+	"scripts": {
+		"build": "tsm ./build.ts"
 	}
 }
