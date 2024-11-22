@@ -4,6 +4,7 @@ import semver from "semver";
 
 const note =
 	"\n# NOTE: This file is auto-generated in packages/releases-generator/build.ts\n# For corrections please edit it directly";
+
 const packages = [
 	{
 		name: "tauri",
@@ -51,13 +52,17 @@ let latestVersions: {
 async function generator() {
 	for (const pkg of packages) {
 		const response = await fetch(pkg.url);
+
 		const responseText: string = await response.text();
+
 		const releases = responseText
 			.split("## \\[")
 			.filter((item) => !item.includes("# Changelog"))
 			.map((section) => {
 				const [version, ...c] = section.split("\n");
+
 				const contents = c.join("\n");
+
 				return {
 					version: version.replace("\\[", "").replace("]", ""),
 					notes: contents,
@@ -75,6 +80,7 @@ async function generator() {
 		 * Write files for each version
 		 */
 		const len = releases.length;
+
 		for (let i = 0; i < len; i++) {
 			/**
 			 * Deal with next-prev labels
@@ -102,7 +108,9 @@ async function generator() {
 			const frontmatter = ["---", ...pageFrontmatter, "---"].join("\n");
 			//
 			const indexLink = `[Return](/release/)`;
+
 			const viewInGitHub = `<a href="${pkg.tag}/${pkg.name}-v${thisVersion}">View on GitHub</a>`;
+
 			const linksDiv = `<div style="margin-bottom:3rem; display: flex; justify-content: space-between; align-items: center"><span>${indexLink}</span><span>${viewInGitHub}</span></div>`;
 			//
 
@@ -116,6 +124,7 @@ async function generator() {
 	// Generate index page
 	const extraNote =
 		"# To quickly preview changes, you can edit this file, them make sure you copy the changes over the source build.ts script\n";
+
 	const indexPage = [
 		"---",
 		note,
@@ -185,14 +194,19 @@ function entitify(str: string): string {
 			switch (entity) {
 				case "&":
 					return "&amp;";
+
 				case "<":
 					return "&lt;";
+
 				case ">":
 					return "&gt;";
+
 				case '"':
 					return "&quot;";
+
 				case "'":
 					return "&#39;";
+
 				default:
 					return entity;
 			}

@@ -190,7 +190,9 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		switch (typeof schema.const) {
 			case "string":
 				line += `\`"${schema.const}"\``;
+
 				break;
+
 			default:
 				line += `\`${schema.const}\``;
 		}
@@ -202,7 +204,9 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 			switch (typeof value) {
 				case "string":
 					enumValues.push(`\`"${value}"\``);
+
 					break;
+
 				default:
 					enumValues.push(`\`${value}\``);
 			}
@@ -271,9 +275,11 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 		}
 
 		let line = "";
+
 		switch (typeName) {
 			case "object":
 				break;
+
 			case "array":
 				if (typeof parentSchema !== "object" || !parentSchema.items) {
 					throw Error("Invalid array");
@@ -285,9 +291,11 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 								value,
 								opts,
 							);
+
 							if (definition.length > 1) {
 								// Format additional information to be in parenthesis
 								const [first, ...rest] = definition;
+
 								return [first, " (", rest.join(", "), ")"];
 							} else {
 								return definition.join();
@@ -298,7 +306,9 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 					line += buildSchemaDefinition(parentSchema.items, opts);
 				}
 				line += "[]";
+
 				break;
+
 			default:
 				line += "`" + typeName + "`";
 		}
@@ -479,6 +489,7 @@ function buildBooleanSubschemas(
 		if (definitions.length > 1) {
 			// Render as a list
 			out.push(`**${label} of the following**:`);
+
 			const list: string[] = [];
 
 			const additionalDefinitions: string[][] = [];
@@ -590,6 +601,7 @@ function buildDefinitions(
 	// Combine definitions together
 	// `definitions` was renamed to `$defs` in Draft 7 but still allowed in either place
 	const definitions = { ...schema.$defs, ...schema.definitions };
+
 	if (Object.keys(definitions).length > 0) {
 		out.push(`${"#".repeat(Math.min(opts.headingLevel, 6))} Definitions`);
 		Object.entries(definitions)

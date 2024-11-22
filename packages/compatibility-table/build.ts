@@ -33,6 +33,7 @@ const desktopOnlySupport = [
 
 // todo: resolve dir
 const baseDir = "../plugins-workspace";
+
 const pluginDir = "../plugins-workspace/plugins";
 
 async function main() {
@@ -41,18 +42,23 @@ async function main() {
 	const workspaceCargo = TOML.parse(
 		await readFile(path.join(baseDir, "Cargo.toml"), "utf-8"),
 	);
+
 	const baseRustVersion = workspaceCargo.workspace.package["rust-version"];
 
 	const tables: Record<string, any> = {};
+
 	for (const plugin of plugins) {
 		// using Record<string, any> but it's not reaaaally safe, might as well use any
 		const pluginPath = path.join(pluginDir, plugin, "Cargo.toml");
+
 		try {
 			const data = TOML.parse(await readFile(pluginPath, "utf-8"));
+
 			const pkg = data.package as Record<string, any>;
 
 			const hasSpecificRustVersion =
 				pkg["rust-version"] && !pkg["rust-version"].workspace;
+
 			const platformsSupport: Record<string, any> =
 				pkg.metadata.platforms.support;
 

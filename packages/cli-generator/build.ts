@@ -11,13 +11,16 @@ function getSubcommands(commandOutput: string): Command[] {
 	const subcommands = [];
 
 	let readingSubcommands = false;
+
 	for (const line of commandOutput.split("\n").map((l) => l.trim())) {
 		if (readingSubcommands) {
 			if (line.length === 0) {
 				readingSubcommands = false;
 			} else {
 				const subcommand = line.substring(0, line.indexOf(" "));
+
 				const description = line.substring(subcommand.length).trim();
+
 				if (subcommand !== "help") {
 					subcommands.push({ name: subcommand, description });
 				}
@@ -39,6 +42,7 @@ function generateCommandDoc(
 	const output = execSync(`pnpm tauri ${command} --help`)
 		.toString()
 		.replace("pnpm run build", "tauri");
+
 	const subcommands = getSubcommands(output);
 
 	subcommandList.push(
@@ -54,6 +58,7 @@ function generateCommandDoc(
 			: `\n${subcommands.map(({ name }) => generateCommandDoc(`${command} ${name}`, level + 1, commandList)).join("\n\n")}`;
 
 	const heading = "#".repeat(level);
+
 	return `${heading} \`${command}\`
   
 <CommandTabs
@@ -72,6 +77,7 @@ ${subcommandsDoc}
 }
 
 const output = execSync("pnpm tauri --help").toString();
+
 const subcommands = getSubcommands(output);
 
 const commandList: Command[] = [];
@@ -80,7 +86,9 @@ let doc = "";
 
 for (const command of subcommands) {
 	commandList.push(command);
+
 	const commandDoc = generateCommandDoc(command.name, 3, commandList);
+
 	doc += commandDoc;
 }
 

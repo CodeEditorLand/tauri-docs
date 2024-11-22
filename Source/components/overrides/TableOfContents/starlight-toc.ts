@@ -9,6 +9,7 @@ export class StarlightTOC extends HTMLElement {
 
 	protected set current(link: HTMLAnchorElement) {
 		if (link === this._current) return;
+
 		if (this._current) this._current.removeAttribute("aria-current");
 		link.setAttribute("aria-current", "true");
 		this._current = link;
@@ -33,8 +34,10 @@ export class StarlightTOC extends HTMLElement {
 				if (el.id === PAGE_TITLE_ID) return true;
 				// Check the heading level is within the user-configured limits for the ToC
 				const level = el.tagName[1];
+
 				if (level) {
 					const int = parseInt(level, 10);
+
 					if (int >= this.minH && int <= this.maxH) return true;
 				}
 			}
@@ -46,16 +49,20 @@ export class StarlightTOC extends HTMLElement {
 			el: Element | null,
 		): HTMLHeadingElement | null => {
 			if (!el) return null;
+
 			const origin = el;
+
 			while (el) {
 				if (isHeading(el)) return el;
 				// Assign the previous sibling’s last, most deeply nested child to el.
 				el = el.previousElementSibling;
+
 				while (el?.lastElementChild) {
 					el = el.lastElementChild;
 				}
 				// Look for headings amongst siblings.
 				const h = getElementHeading(el);
+
 				if (h) return h;
 			}
 			// Walk back up the parent.
@@ -66,14 +73,19 @@ export class StarlightTOC extends HTMLElement {
 		const setCurrent: IntersectionObserverCallback = (entries) => {
 			for (const { isIntersecting, target } of entries) {
 				if (!isIntersecting) continue;
+
 				const heading = getElementHeading(target);
+
 				if (!heading) continue;
+
 				const link = links.find(
 					(link) =>
 						link.hash === "#" + encodeURIComponent(heading.id),
 				);
+
 				if (link) {
 					this.current = link;
+
 					break;
 				}
 			}
@@ -87,6 +99,7 @@ export class StarlightTOC extends HTMLElement {
 		);
 
 		let observer: IntersectionObserver | undefined;
+
 		const observe = () => {
 			if (observer) return;
 			observer = new IntersectionObserver(setCurrent, {
@@ -116,7 +129,9 @@ export class StarlightTOC extends HTMLElement {
 		const top = navBarHeight + mobileTocHeight + 32;
 		/** End intersections `53px` later. This is slightly more than the maximum `margin-top` in Markdown content. */
 		const bottom = top + 53;
+
 		const height = document.documentElement.clientHeight;
+
 		return `-${top}px 0% ${bottom - height}px`;
 	}
 }

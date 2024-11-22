@@ -70,6 +70,7 @@ export class TranslationStatusBuilder {
 		const isShallowRepo = await this.git.revparse([
 			"--is-shallow-repository",
 		]);
+
 		if (isShallowRepo !== "false") {
 			output.error(dedent`This script cannot operate on a shallow clone of the git repository.
 				Please add the checkout setting "fetch-depth: 0" to your GitHub workflow:
@@ -85,7 +86,9 @@ export class TranslationStatusBuilder {
 
 		// Ensure that the output directory exists before continuing
 		output.debug(`- Output file path: ${this.htmlOutputFilePath}`);
+
 		const outputDir = path.dirname(this.htmlOutputFilePath);
+
 		if (!fs.existsSync(outputDir)) {
 			fs.mkdirSync(outputDir, { recursive: true });
 		}
@@ -93,6 +96,7 @@ export class TranslationStatusBuilder {
 		// Create an index of all Markdown/MDX pages grouped by language,
 		// with information about the last minor & major commit per page
 		output.debug(`- Generating page index...`);
+
 		const pages = await this.createPageIndex();
 
 		// Determine translation status by source page
@@ -103,6 +107,7 @@ export class TranslationStatusBuilder {
 
 		// Render a human-friendly summary
 		output.debug(`- Building HTML file...`);
+
 		const html = this.renderHtmlStatusPage(statusByPage, pullRequests);
 
 		// Write HTML output to file
@@ -139,9 +144,11 @@ export class TranslationStatusBuilder {
 		const pagePaths = await glob(`**/*.{md,mdx}`, {
 			cwd: this.pageSourceDir,
 		});
+
 		const updatedPages = await Promise.all(
 			pagePaths.sort().map(async (pagePath) => {
 				const pathParts = pagePath.split("/");
+
 				const isLanguageSubpathIncluded = this.targetLanguages
 					.map((el) => el.toLowerCase())
 					.includes(pathParts[0]!);
@@ -150,6 +157,7 @@ export class TranslationStatusBuilder {
 				const lang = isLanguageSubpathIncluded
 					? pathParts[0]
 					: this.sourceLanguage;
+
 				const subpath = pathParts.splice(1).join("/");
 
 				// Create or update page data for the page
@@ -164,7 +172,9 @@ export class TranslationStatusBuilder {
 		// Write the updated pages to the index
 		updatedPages.forEach((page) => {
 			if (!page) return;
+
 			const { lang, subpath, pageData } = page;
+
 			if (!pageData) return;
 			pages[lang!]![subpath] = pageData;
 		});
@@ -186,6 +196,7 @@ export class TranslationStatusBuilder {
 
 		// Retrieve i18nReady flag from frontmatter
 		const frontMatterBlock = tryGetFrontMatterBlock(fullFilePath);
+
 		const i18nReady = /^\s*i18nReady:\s*true\s*$/m.test(frontMatterBlock);
 
 		return {
@@ -204,6 +215,7 @@ export class TranslationStatusBuilder {
 		});
 
 		const lastCommit = gitLog.latest;
+
 		if (!lastCommit) {
 			return;
 			// Disabled since we have generated reference files
@@ -229,10 +241,12 @@ export class TranslationStatusBuilder {
 
 	getTranslationStatusByPage(pages: PageIndex): PageTranslationStatus[] {
 		const sourcePages = pages[this.sourceLanguage];
+
 		const arrContent: PageTranslationStatus[] = [];
 
 		Object.keys(sourcePages!).forEach((subpath) => {
 			const sourcePage = sourcePages![subpath]!;
+
 			if (!sourcePage.i18nReady) return;
 
 			const content: PageTranslationStatus = {
@@ -284,7 +298,9 @@ export class TranslationStatusBuilder {
 		query?: string;
 	}) {
 		const noDotSrcDir = this.pageSourceDir.replaceAll(/\.+\//g, "");
+
 		const isSrcLang = lang === this.sourceLanguage;
+
 		return `https://github.com/${this.githubRepo}/${type}/${this.githubRef}/${noDotSrcDir}${
 			isSrcLang ? "" : `/${lang}`
 		}/${subpath}${query}`;
@@ -303,6 +319,7 @@ export class TranslationStatusBuilder {
 			path.dirname(fileURLToPath(import.meta.url)),
 			"template.html",
 		);
+
 		const html = fs.readFileSync(templateFilePath, { encoding: "utf8" });
 
 		// Replace placeholders in the template with the rendered views
@@ -329,6 +346,7 @@ export class TranslationStatusBuilder {
 			const missing = statusByPage.filter(
 				(content) => content.translations[lang]!.isMissing,
 			);
+
 			const outdated = statusByPage.filter(
 				(content) => content.translations[lang]!.isOutdated,
 			);
@@ -351,6 +369,7 @@ export class TranslationStatusBuilder {
 					`</summary>`,
 			);
 			lines.push(``);
+
 			if (outdated.length > 0) {
 				lines.push(`<h5>🔄&nbsp; Needs updating</h5>`);
 				lines.push(`<ul>`);
@@ -402,6 +421,7 @@ export class TranslationStatusBuilder {
 			lines.push(
 				...prs.map((pr) => {
 					const title = pr.title.replaceAll("`", "");
+
 					return (
 						`<li>` + this.renderLink(pr.html_url, title) + `</li>`
 					);
@@ -429,6 +449,7 @@ export class TranslationStatusBuilder {
 		lines.push("</tr></thead>");
 
 		lines.push("<tbody>");
+
 		const spacer = `<tr class="spacer">\n${this.targetLanguages
 			.map(() => `<td></td>`)
 			.join("\n")}\n</tr>`;
@@ -439,10 +460,13 @@ export class TranslationStatusBuilder {
 			cols.push(
 				...this.targetLanguages.map((lang) => {
 					const translation = content.translations[lang]!;
+
 					if (translation.isMissing)
 						return `<span title="${lang}: Missing"><span aria-hidden="true">❌</span></span>`;
+
 					if (translation.isOutdated)
 						return `<a href="${translation.githubUrl}" title="${lang}: Needs updating"><span aria-hidden="true">🔄</span></a>`;
+
 					return `<a href="${translation.githubUrl}" title="${lang}: Completed"><span aria-hidden="true">✔</span></a>`;
 				}),
 			);
@@ -476,6 +500,7 @@ export class TranslationStatusBuilder {
 		);
 		createUrl.searchParams.set("filename", lang + "/" + filename);
 		createUrl.searchParams.set("value", "---\ntitle:\ndescription:\n---\n");
+
 		return this.renderLink(
 			createUrl.href,
 			`Create\xa0page\xa0+`,
@@ -493,8 +518,11 @@ export class TranslationStatusBuilder {
 		{ size = 20 }: { size?: number } = {},
 	) {
 		const outdatedLength = Math.round((outdated / total) * size);
+
 		const missingLength = Math.round((missing / total) * size);
+
 		const doneLength = size - outdatedLength - missingLength;
+
 		return (
 			'<span class="progress-bar" aria-hidden="true">' +
 			[
@@ -522,7 +550,10 @@ function toUtcString(date: string) {
 
 function tryGetFrontMatterBlock(filePath: string): string {
 	const contents = fs.readFileSync(filePath, "utf8");
+
 	const matches = contents.match(/^\s*---([\S\s]*?)\n---/);
+
 	if (!matches) return "";
+
 	return matches[1];
 }

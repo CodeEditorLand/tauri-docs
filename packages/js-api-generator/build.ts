@@ -189,7 +189,9 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 				}
 				let label =
 					model.sources.length > 1 ? "**Sources**: " : "**Source**: ";
+
 				const sources = model.sources.map((source) => `${source.url}`);
+
 				return label + sources.join(", ");
 			},
 		};
@@ -208,6 +210,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 				.replaceAll(".", "")
 				.toLowerCase(),
 		).replaceAll("\\", "/");
+
 		return url;
 	};
 }

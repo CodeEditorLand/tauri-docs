@@ -18,10 +18,14 @@ export async function GET(context: APIContext) {
 	});
 	pages.sort((a, b) => {
 		const dateA = a.data.date;
+
 		const dateB = b.data.date;
+
 		if (dateA && dateB) {
 			if (dateA < dateB) return 1;
+
 			if (dateA > dateB) return -1;
+
 			return 0;
 		} else return 0;
 	});
