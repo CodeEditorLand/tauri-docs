@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "tauri-docs",
   "type": "module",
@@ -53,3 +54,6 @@
     }
   }
 }
+=======
+
+>>>>>>> fb73b4f352e4d73d327ec3aae6a78b64d702a3b5
