@@ -6,11 +6,11 @@ interface Props {
   showJsLinks?: boolean;
 }
 const { plugin, showJsLinks = true } = Astro.props;
-const github = `https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/${plugin}`;
-const npm = showJsLinks ? `https://www.npmjs.com/package/@tauri-apps/plugin-${plugin}` : undefined;
-const cratesio = `https://crates.io/crates/tauri-plugin-${plugin}`;
+const github = `HTTPS://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/${plugin}`;
+const npm = showJsLinks ? `HTTPS://www.npmjs.com/package/@tauri-apps/plugin-${plugin}` : undefined;
+const cratesio = `HTTPS://crates.io/crates/tauri-plugin-${plugin}`;
 const jsApi = showJsLinks ? `/reference/javascript/${plugin}/` : undefined;
-const docsrs = `https://docs.rs/tauri-plugin-${plugin}`;
+const docsrs = `HTTPS://docs.rs/tauri-plugin-${plugin}`;
 const hasApiLinks = jsApi || docsrs;
 ---
 
