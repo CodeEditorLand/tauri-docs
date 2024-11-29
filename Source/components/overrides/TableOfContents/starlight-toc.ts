@@ -4,14 +4,18 @@ export class StarlightTOC extends HTMLElement {
 	private _current = this.querySelector<HTMLAnchorElement>(
 		'a[aria-current="true"]',
 	);
+
 	private minH = parseInt(this.dataset.minH || "2", 10);
+
 	private maxH = parseInt(this.dataset.maxH || "3", 10);
 
 	protected set current(link: HTMLAnchorElement) {
 		if (link === this._current) return;
 
 		if (this._current) this._current.removeAttribute("aria-current");
+
 		link.setAttribute("aria-current", "true");
+
 		this._current = link;
 	}
 
@@ -20,6 +24,7 @@ export class StarlightTOC extends HTMLElement {
 
 	constructor() {
 		super();
+
 		this.onIdle(() => this.init());
 	}
 
@@ -41,6 +46,7 @@ export class StarlightTOC extends HTMLElement {
 					if (int >= this.minH && int <= this.maxH) return true;
 				}
 			}
+
 			return false;
 		};
 
@@ -102,18 +108,24 @@ export class StarlightTOC extends HTMLElement {
 
 		const observe = () => {
 			if (observer) return;
+
 			observer = new IntersectionObserver(setCurrent, {
 				rootMargin: this.getRootMargin(),
 			});
+
 			toObserve.forEach((h) => observer!.observe(h));
 		};
+
 		observe();
 
 		let timeout: NodeJS.Timeout;
+
 		window.addEventListener("resize", () => {
 			// Disable intersection observer while window is resizing.
 			if (observer) observer.disconnect();
+
 			clearTimeout(timeout);
+
 			timeout = setTimeout(() => this.onIdle(observe), 200);
 		});
 	};

@@ -16,6 +16,7 @@ export async function GET(context: APIContext) {
 	const pages = await getCollection("docs", ({ id }) => {
 		return !exclude.some((path) => id.startsWith(path));
 	});
+
 	pages.sort((a, b) => {
 		const dateA = a.data.date;
 

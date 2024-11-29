@@ -15,7 +15,9 @@ export const COMMIT_IGNORE = /(en-only|typo|broken link|i18nReady|i18nIgnore)/i;
 
 interface PullRequest {
 	html_url: string;
+
 	title: string;
+
 	labels: {
 		name: string;
 	}[];
@@ -35,34 +37,56 @@ export class TranslationStatusBuilder {
 		 * If the parent path does not exist yet, it will be created.
 		 * */
 		htmlOutputFilePath: string;
+
 		sourceLanguage: string;
+
 		targetLanguages: string[];
+
 		languageLabels: { [key: string]: string };
+
 		githubRepo: string;
+
 		gitHubRef: string;
+
 		githubToken?: string | undefined;
 	}) {
 		this.pageSourceDir = config.pageSourceDir;
+
 		this.htmlOutputFilePath = path.resolve(config.htmlOutputFilePath);
+
 		this.sourceLanguage = config.sourceLanguage;
+
 		this.targetLanguages = config.targetLanguages;
+
 		this.languageLabels = config.languageLabels;
+
 		this.githubRepo = config.githubRepo;
+
 		this.githubRef = config.gitHubRef;
+
 		this.githubToken = config.githubToken ?? "";
+
 		this.git = simpleGit({
 			maxConcurrentProcesses: Math.max(2, Math.min(32, os.cpus().length)),
 		});
 	}
 
 	readonly pageSourceDir;
+
 	readonly htmlOutputFilePath;
+
 	readonly sourceLanguage;
+
 	readonly targetLanguages;
+
 	readonly languageLabels;
+
 	readonly githubRepo;
+
 	readonly githubRef;
+
 	readonly githubToken;
+
 	readonly git;
 
 	async run() {
@@ -79,6 +103,7 @@ export class TranslationStatusBuilder {
 				  with:
 				    fetch-depth: 0
 			`);
+
 			process.exit(1);
 		}
 
@@ -114,7 +139,9 @@ export class TranslationStatusBuilder {
 		fs.writeFileSync(this.htmlOutputFilePath, html);
 
 		output.debug("");
+
 		output.debug("*** Success!");
+
 		output.debug("");
 	}
 
@@ -135,6 +162,7 @@ export class TranslationStatusBuilder {
 		const pages: PageIndex = {
 			[this.sourceLanguage]: {},
 		};
+
 		this.targetLanguages.forEach(
 			(lang) => (pages[lang.toLowerCase()] = {}),
 		);
@@ -176,6 +204,7 @@ export class TranslationStatusBuilder {
 			const { lang, subpath, pageData } = page;
 
 			if (!pageData) return;
+
 			pages[lang!]![subpath] = pageData;
 		});
 
@@ -261,6 +290,7 @@ export class TranslationStatusBuilder {
 
 			this.targetLanguages.forEach((lang) => {
 				const i18nPage = pages[lang.toLowerCase()]![subpath]!;
+
 				content.translations[lang] = {
 					page: i18nPage,
 					isMissing: !i18nPage,
@@ -292,9 +322,13 @@ export class TranslationStatusBuilder {
 		query = "",
 	}: {
 		type?: string;
+
 		refName?: string;
+
 		lang: string;
+
 		subpath: string;
+
 		query?: string;
 	}) {
 		const noDotSrcDir = this.pageSourceDir.replaceAll(/\.+\//g, "");
@@ -350,7 +384,9 @@ export class TranslationStatusBuilder {
 			const outdated = statusByPage.filter(
 				(content) => content.translations[lang]!.isOutdated,
 			);
+
 			lines.push("<details>");
+
 			lines.push(
 				`<summary><strong>` +
 					`${this.languageLabels[lang]} (${lang})` +
@@ -368,11 +404,14 @@ export class TranslationStatusBuilder {
 					) +
 					`</summary>`,
 			);
+
 			lines.push(``);
 
 			if (outdated.length > 0) {
 				lines.push(`<h5>🔄&nbsp; Needs updating</h5>`);
+
 				lines.push(`<ul>`);
+
 				lines.push(
 					...outdated.map(
 						(content) =>
@@ -388,11 +427,15 @@ export class TranslationStatusBuilder {
 							`</li>`,
 					),
 				);
+
 				lines.push(`</ul>`);
 			}
+
 			if (missing.length > 0) {
 				lines.push(`<h5>❌&nbsp; Missing</h5>`);
+
 				lines.push(`<ul>`);
+
 				lines.push(
 					...missing.map(
 						(content) =>
@@ -404,9 +447,12 @@ export class TranslationStatusBuilder {
 							`</li>`,
 					),
 				);
+
 				lines.push(`</ul>`);
 			}
+
 			lines.push(`</details>`);
+
 			lines.push(``);
 		});
 
@@ -418,6 +464,7 @@ export class TranslationStatusBuilder {
 
 		if (prs.length > 0) {
 			lines.push(`<ul>`);
+
 			lines.push(
 				...prs.map((pr) => {
 					const title = pr.title.replaceAll("`", "");
@@ -427,8 +474,10 @@ export class TranslationStatusBuilder {
 					);
 				}),
 			);
+
 			lines.push(`</ul>`);
 		}
+
 		lines.push(``);
 
 		return lines.join("\n");
@@ -438,14 +487,17 @@ export class TranslationStatusBuilder {
 		const lines: string[] = [];
 
 		lines.push('<div class="table-container"/>');
+
 		lines.push('<table role="table" class="status-by-page">');
 
 		lines.push("<thead><tr>");
+
 		lines.push(
 			["Page", ...this.targetLanguages]
 				.map((col) => `<th>${col}</th>`)
 				.join(""),
 		);
+
 		lines.push("</tr></thead>");
 
 		lines.push("<tbody>");
@@ -453,10 +505,14 @@ export class TranslationStatusBuilder {
 		const spacer = `<tr class="spacer">\n${this.targetLanguages
 			.map(() => `<td></td>`)
 			.join("\n")}\n</tr>`;
+
 		lines.push(spacer);
+
 		statusByPage.forEach((content) => {
 			const cols = [];
+
 			cols.push(this.renderLink(content.githubUrl, content.subpath));
+
 			cols.push(
 				...this.targetLanguages.map((lang) => {
 					const translation = content.translations[lang]!;
@@ -470,11 +526,14 @@ export class TranslationStatusBuilder {
 					return `<a href="${translation.githubUrl}" title="${lang}: Completed"><span aria-hidden="true">✔</span></a>`;
 				}),
 			);
+
 			lines.push(
 				`<tr>\n${cols.map((col) => `<td>${col}</td>`).join("\n")}\n</tr>`,
 			);
 		});
+
 		lines.push(spacer);
+
 		lines.push("</tbody>");
 
 		lines.push("</table>");
@@ -482,6 +541,7 @@ export class TranslationStatusBuilder {
 		lines.push(
 			`\n<sup>❌ Missing &nbsp; 🔄 Needs updating &nbsp; ✔ Completed</sup>`,
 		);
+
 		lines.push("</div>");
 
 		return lines.join("\n");
@@ -498,7 +558,9 @@ export class TranslationStatusBuilder {
 		const createUrl = new URL(
 			`https://github.com/${this.githubRepo}/new/${this.githubRef}/src/content/docs`,
 		);
+
 		createUrl.searchParams.set("filename", lang + "/" + filename);
+
 		createUrl.searchParams.set("value", "---\ntitle:\ndescription:\n---\n");
 
 		return this.renderLink(

@@ -132,6 +132,7 @@ async function generateDocs(options: Partial<TypeDocOptions>) {
 	const outputDir = `../../src/content/docs${options.publicPath}`;
 
 	const app = await Application.bootstrapWithPlugins(options);
+
 	app.options.addReader(new TSConfigReader());
 	// @ts-ignore
 	app.renderer.defineTheme("tauri-theme", TauriTheme);
@@ -156,6 +157,7 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 	if (!event.contents) {
 		return;
 	}
+
 	const frontmatter = [
 		"---",
 		`title: "${event.model.name}"`,
@@ -168,6 +170,7 @@ function pageEventEnd(event: PageEvent<DeclarationReflection>) {
 		"",
 		event.contents,
 	];
+
 	event.contents = frontmatter.join("\n");
 }
 class TauriThemeRenderContext extends MarkdownThemeContext {
@@ -177,6 +180,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 		options: Options,
 	) {
 		super(theme, page, options);
+
 		this.partials = {
 			...this.partials,
 			// Formats `@source` to be a single line
@@ -187,6 +191,7 @@ class TauriThemeRenderContext extends MarkdownThemeContext {
 				if (!model.sources) {
 					return "";
 				}
+
 				let label =
 					model.sources.length > 1 ? "**Sources**: " : "**Source**: ";
 

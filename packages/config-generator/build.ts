@@ -68,7 +68,9 @@ async function generatePageFromSchema(
 
 interface Options {
 	headingLevel: number;
+
 	renderTitle: boolean;
+
 	leadWithType: boolean;
 }
 
@@ -95,12 +97,19 @@ function buildSchemaDefinition(
 	const out: string[] = [];
 
 	out.push(...buildType(schema, opts));
+
 	out.push(...buildExtendedItems(schema, opts));
+
 	out.push(...buildConditionalSubschemas(schema, opts));
+
 	out.push(...buildBooleanSubschemas(schema, opts));
+
 	out.push(...buildMetadata(schema, opts));
+
 	out.push(...buildProperties(schema, opts));
+
 	out.push(...buildExtendedMetadata(schema, opts));
+
 	out.push(...buildDefinitions(schema, opts));
 
 	return out;
@@ -126,8 +135,11 @@ function buildMetadata(schema: JSONSchema7Definition, opts: Options): string[] {
 
 	if (schema.readOnly || schema.writeOnly) {
 		const line = [];
+
 		schema.readOnly && line.push("Read only");
+
 		schema.writeOnly && line.push("Write only");
+
 		out.push(line.join(" & "));
 	}
 
@@ -200,6 +212,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 
 	if (schema.enum) {
 		const enumValues: string[] = [];
+
 		schema.enum.forEach((value) => {
 			switch (typeof value) {
 				case "string":
@@ -211,6 +224,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 					enumValues.push(`\`${value}\``);
 			}
 		});
+
 		line += enumValues.join(" | ");
 	}
 
@@ -219,30 +233,39 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 	// Number validation
 	schema.multipleOf &&
 		validation.push(`multiple of \`${schema.multipleOf}\``);
+
 	schema.maximum && validation.push(`maximum of \`${schema.maximum}\``);
+
 	schema.exclusiveMaximum &&
 		validation.push(`exclusive maximum of \`${schema.exclusiveMaximum}\``);
+
 	schema.minimum && validation.push(`minimum of \`${schema.minimum}\``);
+
 	schema.exclusiveMinimum &&
 		validation.push(`exclusive minimum of \`${schema.exclusiveMinimum}\``);
 
 	// String validation
 	schema.maxLength &&
 		validation.push(`maximum length of \`${schema.maxLength}\``);
+
 	schema.minLength &&
 		validation.push(`minimum length of \`${schema.minLength}\``);
+
 	schema.pattern && validation.push(`pattern of \`${schema.pattern}\``);
 
 	// Array validation
 	schema.maxItems &&
 		validation.push(`maximum of \`${schema.maxItems}\` items`);
+
 	schema.minItems &&
 		validation.push(`minimum of \`${schema.minItems}\` items`);
+
 	schema.uniqueItems && validation.push(`each item must be unique`);
 
 	// Object validation
 	schema.maxProperties &&
 		validation.push(`maximum of \`${schema.maxProperties}\` properties`);
+
 	schema.minProperties &&
 		validation.push(`minimum of \`${schema.minProperties}\` properties`);
 
@@ -252,6 +275,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 	// Non-JSON data validation
 	schema.contentMediaType &&
 		validation.push(`content media type of \`${schema.contentMediaType}\``);
+
 	schema.contentEncoding &&
 		validation.push(`content encoding of \`${schema.contentEncoding}\``);
 
@@ -284,6 +308,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 				if (typeof parentSchema !== "object" || !parentSchema.items) {
 					throw Error("Invalid array");
 				}
+
 				if (Array.isArray(parentSchema.items)) {
 					line += parentSchema.items
 						.map((value) => {
@@ -305,6 +330,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 				} else {
 					line += buildSchemaDefinition(parentSchema.items, opts);
 				}
+
 				line += "[]";
 
 				break;
@@ -312,6 +338,7 @@ function buildType(schema: JSONSchema7Definition, opts: Options): string[] {
 			default:
 				line += "`" + typeName + "`";
 		}
+
 		return line;
 	}
 }
@@ -330,6 +357,7 @@ function buildExtendedItems(
 	if (schema.additionalItems) {
 		throw Error("Not implemented");
 	}
+
 	if (schema.contains) {
 		throw Error("Not implemented");
 	}
@@ -338,6 +366,7 @@ function buildExtendedItems(
 
 	schema.additionalItems &&
 		out.push(`additionalItems: ${JSON.stringify(schema.additionalItems)}`);
+
 	schema.contains && out.push(`contains: ${JSON.stringify(schema.contains)}`);
 
 	return out;
@@ -376,6 +405,7 @@ function buildProperties(
 			out.push(
 				`${"#".repeat(Math.min(6, opts.headingLevel + 1))} ${key}`,
 			);
+
 			out.push(
 				...buildSchemaDefinition(value, {
 					...opts,
@@ -405,8 +435,10 @@ function buildProperties(
 		out.push(
 			`patternProperties: ${JSON.stringify(schema.patternProperties)}`,
 		);
+
 	schema.dependencies &&
 		out.push(`dependencies: ${JSON.stringify(schema.dependencies)}`);
+
 	schema.propertyNames &&
 		out.push(`propertyNames: ${JSON.stringify(schema.propertyNames)}`);
 
@@ -431,7 +463,9 @@ function buildConditionalSubschemas(
 	}
 
 	schema.if && out.push(`if: ${JSON.stringify(schema.if)}`);
+
 	schema.then && out.push(`then: ${JSON.stringify(schema.then)}`);
+
 	schema.else && out.push(`else: ${JSON.stringify(schema.else)}`);
 
 	return out;
@@ -498,9 +532,11 @@ function buildBooleanSubschemas(
 				if (definition[0].startsWith("`object`")) {
 					// Is an object, need to render subdefinitions
 					const [first] = definition;
+
 					list.push(
 						`- ${first}: Subdefinition ${additionalDefinitions.length + 1}`,
 					);
+
 					additionalDefinitions.push(definition);
 				} else {
 					// Render inline in list
@@ -516,6 +552,7 @@ function buildBooleanSubschemas(
 				out.push(
 					`${"#".repeat(Math.min(6, opts.headingLevel))} Subdefinitions`,
 				);
+
 				additionalDefinitions.forEach((definition, index) => {
 					// Render heading
 					out.push(
@@ -538,6 +575,7 @@ function buildBooleanSubschemas(
 			// Mapping might need some fixing...
 			out.push(...definitions.map((definition) => definition.join()));
 		}
+
 		return out;
 	}
 }
@@ -604,12 +642,14 @@ function buildDefinitions(
 
 	if (Object.keys(definitions).length > 0) {
 		out.push(`${"#".repeat(Math.min(opts.headingLevel, 6))} Definitions`);
+
 		Object.entries(definitions)
 			.sort(([a], [b]) => a.localeCompare(b))
 			.forEach(([key, value]) => {
 				out.push(
 					`${"#".repeat(Math.min(opts.headingLevel, 6) + 1)} ${key}`,
 				);
+
 				out.push(
 					...buildSchemaDefinition(value, {
 						...opts,
@@ -618,5 +658,6 @@ function buildDefinitions(
 				);
 			});
 	}
+
 	return out;
 }

@@ -1,5 +1,6 @@
 export interface PluginSupport {
 	platform: string;
+
 	level: string;
 	// possible markdown
 	notes?: string;
@@ -7,6 +8,7 @@ export interface PluginSupport {
 
 export interface PluginData {
 	rustVersion: string;
+
 	support: PluginSupport[];
 }
 

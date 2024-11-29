@@ -4,6 +4,7 @@ import { slug } from "github-slugger";
 
 interface Command {
 	name: string;
+
 	description: string;
 }
 
@@ -26,6 +27,7 @@ function getSubcommands(commandOutput: string): Command[] {
 				}
 			}
 		}
+
 		if (line === "Commands:") {
 			readingSubcommands = true;
 		}

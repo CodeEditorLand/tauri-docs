@@ -30,6 +30,7 @@ export function TranslationNeedsReview() {
     <script nonce="abc123">
       class NeedReviewElement extends HTMLElement {
         url = 'https://api.github.com/repos/tauri-apps/tauri-docs/pulls?state=open&per_page=100';
+
         constructor() {
           super();
 
@@ -38,6 +39,7 @@ export function TranslationNeedsReview() {
           this.getPullRequestData().then((data) => {
             let list = data.filter((pr) => pr.labels.find((label) => label.name === 'i18n'))
             let bodyHtml = this.renderLiElements(list);
+
             shadowRoot.innerHTML = ['<style>', style, '</style>', '<ul>', bodyHtml, '</ul>'].join(" ");
           }).catch(()=>{
             shadowRoot.innerHTML = '<ul></ul>';
@@ -58,10 +60,12 @@ export function TranslationNeedsReview() {
         renderLiElements(prs) {
           let lines = prs.map((pr) => {
             const title = pr.title.replace(/\`/g, '');
+
             return '<li>' + this.renderLink(pr.html_url, title) + '</li>';
           });
           return lines?.join('') || '';
         }
+
         renderLink(href, text, className = '') {
           return '<a href="' + href + '" class="' + className + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
         }
