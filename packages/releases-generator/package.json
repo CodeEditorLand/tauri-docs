@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "releases-generator",
   "version": "1.0.0",
   "description": "",
@@ -14,4 +15,18 @@
     "semver": "7.6.0",
     "tsm": "2.3.0"
   }
+=======
+	"name": "releases-generator",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsm ./build.ts"
+	},
+	"dependencies": {
+		"@types/semver": "^7.5.8",
+		"semver": "^7.6.0",
+		"tsm": "^2.3.0"
+	},
+	"devDependencies": {}
+>>>>>>> 32b9f596076f8a52a3462c2dd1afbacf1c239a38
 }
