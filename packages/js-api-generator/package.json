@@ -1,11 +1,6 @@
 {
 	"name": "js-api-generator",
-	"version": "1.0.0",
-	"private": "true",
 	"description": "",
-	"keywords": [],
-	"license": "MIT",
-	"author": "",
 	"main": "index.js",
 	"scripts": {
 		"build": "tsm ./build.ts"

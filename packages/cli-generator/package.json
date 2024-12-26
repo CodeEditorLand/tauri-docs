@@ -1,12 +1,6 @@
 {
 	"name": "cli-generator",
-	"version": "1.0.0",
-	"private": "true",
 	"description": "",
-	"keywords": [],
-	"license": "MIT",
-	"author": "",
-	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"build": "tsm ./build.ts"
