@@ -1,10 +1,10 @@
-import { defineRendererConfig } from '@lunariajs/core';
+import { defineRendererConfig } from "@lunariajs/core";
 
-import { TitleParagraph, TranslationNeedsReview } from './components';
+import { TitleParagraph, TranslationNeedsReview } from "./components";
 
 export default defineRendererConfig({
-  slots: {
-    afterTitle: TitleParagraph,
-    afterStatusByLocale: TranslationNeedsReview,
-  },
+	slots: {
+		afterTitle: TitleParagraph,
+		afterStatusByLocale: TranslationNeedsReview,
+	},
 });
