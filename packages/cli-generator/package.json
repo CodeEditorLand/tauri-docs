@@ -7,7 +7,7 @@
 	},
 	"dependencies": {
 		"@codeeditorland/cli": "0.0.1",
-		"@types/node": "22.0.0",
+		"@types/node": "22.10.5",
 		"github-slugger": "2.0.0",
 		"tsm": "2.3.0"
 	},

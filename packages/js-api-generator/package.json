@@ -8,9 +8,9 @@
 	"dependencies": {
 		"github-slugger": "2.0.0",
 		"tsm": "2.3.0",
-		"typedoc": "0.26.6",
-		"typedoc-plugin-markdown": "4.2.6",
-		"typedoc-plugin-mdn-links": "3.2.11"
+		"typedoc": "0.27.6",
+		"typedoc-plugin-markdown": "4.4.1",
+		"typedoc-plugin-mdn-links": "4.0.7"
 	},
 	"devDependencies": {}
 }
